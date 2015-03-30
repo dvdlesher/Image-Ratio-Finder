@@ -18,8 +18,7 @@ namespace Wallpaper_Picker
         private double upperToleranceRatio;
         private double lowerToleranceSize;
         private double upperToleranceSize;
-        private List<String> matchedImages;
-        private List<String> matchedImagesRatio;
+        private List<MatchedImages> matchedImages;
         private bool allRatioFlag;
 
         public MainForm()
@@ -29,8 +28,7 @@ namespace Wallpaper_Picker
             upperToleranceRatio = 1.0 + (Double.Parse(textBoxTolerance1.Text) / 100.0);
             lowerToleranceSize = 1.0 - (Double.Parse(textBoxTolerance2.Text) / 100.0);
             upperToleranceSize = 1.0 + (Double.Parse(textBoxTolerance2.Text) / 100.0);
-            matchedImages = new List<string>();
-            matchedImagesRatio = new List<string>();
+            matchedImages = new List<MatchedImages>();
             allRatioFlag = false;
         }
 
@@ -40,6 +38,7 @@ namespace Wallpaper_Picker
         // Component Handler //
         ///////////////////////
 
+        // Ratio Option
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked)
@@ -55,6 +54,7 @@ namespace Wallpaper_Picker
 
         }
 
+        // Size Option
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox2.Checked)
@@ -71,6 +71,7 @@ namespace Wallpaper_Picker
             }
         }
 
+        // Subfolder Option
         private void checkBoxSubfolder_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxSubfolder.Checked)
@@ -104,6 +105,7 @@ namespace Wallpaper_Picker
 
         }
 
+        
         private void buttonAllRatio_Click(object sender, EventArgs e)
         {
             allRatioFlag = true;
@@ -118,6 +120,7 @@ namespace Wallpaper_Picker
             callResultDialog();
 
         }
+        
 
         private void textBoxTolerance1_TextChanged(object sender, EventArgs e)
         {
@@ -135,15 +138,16 @@ namespace Wallpaper_Picker
         //// MAIN FUNCTION ////
         ///////////////////////
 
+        // Check if subfolder option is checked or not.
         private void searchFunction(string path, string ratio)
         {
             String[] list;
-            if (checkBoxSubfolder.Checked)
+            if (checkBoxSubfolder.Checked) //Case if subfolder option is checked
             {
                 list = Directory.GetDirectories(path);
                 if (list.Length == 0)
                 {
-                    doFindProcess(path, ratio);
+                    checkImages(path, ratio);
                 }
                 else
                 {
@@ -151,22 +155,24 @@ namespace Wallpaper_Picker
                     {
                         searchFunction(element, ratio);
                     }
-                    doFindProcess(path, ratio);
+                    checkImages(path, ratio);
                 }
             }
-            else
+            else //Case if subfolder option is not checked
             {
-                doFindProcess(path, ratio);
+                checkImages(path, ratio);
             }
         }
 
-        private void doFindProcess(String path, String ratio)
+        //
+        private void checkImages(String path, String ratio)
         {
             String[] imageList = Directory.GetFiles(path);
             Double ratioValue;
             Image tempImageObject;
             Boolean ratioFlag;
             Boolean sizeFlag;
+            MatchedImages temp;
 
             foreach (string element in imageList)
             {
@@ -195,14 +201,9 @@ namespace Wallpaper_Picker
 
                                 if (ratioFlag && sizeFlag)
                                 {
-                                    if (!matchedImages.Contains(element))
-                                    {
-                                        matchedImages.Add(element);
-                                        if (allRatioFlag)
-                                        {
-                                            matchedImagesRatio.Add(ratio.Replace(':','x'));
-                                        }
-                                    }
+                                    temp = new MatchedImages(element, ratio);
+                                    matchedImages.Add(temp);
+
                                 }
                             }
                         }
@@ -211,6 +212,7 @@ namespace Wallpaper_Picker
             }
         }
 
+        // Test if image ratio matches the ratio or not.
         private bool ratioTest(int imageHeight, int imageWidth, double targetRatio)
         {
             String ratioText = comboBox1.GetItemText(comboBox1.SelectedItem).Split(' ')[0];
@@ -224,6 +226,7 @@ namespace Wallpaper_Picker
             return false;
         }
 
+        // Test if image size matches the target size or not.
         private bool sizeTest(int imageHeight, int imageWidth)
         {
 
@@ -240,7 +243,7 @@ namespace Wallpaper_Picker
 
         private void callResultDialog()
         {
-            FormResult resultWindow = new FormResult(matchedImages, matchedImagesRatio, this);
+            FormResult resultWindow = new FormResult(matchedImages, this);
             resultWindow.Show();
             this.Hide();
         }

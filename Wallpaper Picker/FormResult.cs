@@ -13,19 +13,18 @@ namespace Wallpaper_Picker
 {
     public partial class FormResult : Form
     {
-        List<String> matchedImages;
-        List<String> matchedRatios;
+        List<MatchedImages> matchedImages;
         Form prevForm;
 
         public FormResult()
         {
             InitializeComponent();
         }
-        public FormResult(List<String> matchedImages, List<String> matchedRatios, Form prevForm)
+
+        public FormResult(List<MatchedImages> matchedImages, Form prevForm)
         {
             InitializeComponent();
             this.matchedImages = matchedImages;
-            this.matchedRatios = matchedRatios;
             this.prevForm = prevForm;
             label3.Text = matchedImages.Count.ToString();
             comboBoxPreviewSelect.SelectedIndex = 0;
@@ -38,11 +37,11 @@ namespace Wallpaper_Picker
             folderBrowserDialog1.ShowDialog();
             for (int i = 0; i < matchedImages.Count; i++)
             {
-                fullpath = matchedImages[i];
-                filename = matchedImages[i].Split('\\')[matchedImages[i].Split('\\').Length - 1];
-                if (matchedRatios != null)
+                fullpath = matchedImages[i].getfullPath();
+                filename = matchedImages[i].getfullPath().Split('\\')[matchedImages[i].getfullPath().Split('\\').Length - 1];
+                if (checkBox1.Checked)
                 {
-                    secureCopyMove("Copy", fullpath, folderBrowserDialog1.SelectedPath + "\\" + matchedRatios[1] + "\\" + filename, folderBrowserDialog1.SelectedPath + "\\" + matchedRatios[1]);
+                    secureCopyMove("Copy", fullpath, folderBrowserDialog1.SelectedPath + "\\" + matchedImages[i].getratio().Replace(":", "x") + "\\" + filename, folderBrowserDialog1.SelectedPath + "\\" + matchedImages[i].getratio().Replace(":", "x"));
                 }
                 else
                 {
@@ -58,11 +57,11 @@ namespace Wallpaper_Picker
             folderBrowserDialog1.ShowDialog();
             for (int i = 0; i < matchedImages.Count; i++)
             {
-                fullpath = matchedImages[i];
-                filename = matchedImages[i].Split('\\')[matchedImages[i].Split('\\').Length - 1];
-                if (matchedRatios != null)
+                fullpath = matchedImages[i].getfullPath();
+                filename = matchedImages[i].getfullPath().Split('\\')[matchedImages[i].getfullPath().Split('\\').Length - 1];
+                if (checkBox1.Checked)
                 {
-                    secureCopyMove("Move", fullpath, folderBrowserDialog1.SelectedPath + "\\" + matchedRatios[1] + "\\" + filename, folderBrowserDialog1.SelectedPath + "\\" + matchedRatios[1]);
+                    secureCopyMove("Move", fullpath, folderBrowserDialog1.SelectedPath + "\\" + matchedImages[i].getratio().Replace(":", "꞉") + "\\" + filename, folderBrowserDialog1.SelectedPath + "\\" + matchedImages[i].getratio().Replace(":", "꞉"));
                 }
                 else
                 {
