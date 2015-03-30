@@ -1,0 +1,12 @@
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\bin\Debug\Wallpaper Picker.exe.config
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\bin\Debug\Wallpaper Picker.exe
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\bin\Debug\Wallpaper Picker.pdb
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper Picker.csprojResolveAssemblyReference.cache
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper_Picker.Properties.Resources.resources
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper Picker.csproj.GenerateResource.Cache
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper Picker.exe
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper Picker.pdb
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper_Picker.MainForm.resources
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper_Picker.DisplayForm.resources
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper_Picker.FormResult.resources
+C:\Users\DVDLesher\Dropbox\Private\Visual Studio Projects\Wallpaper Picker\Wallpaper Picker\obj\Debug\Wallpaper_Picker.ThumbnailLayout.resources
