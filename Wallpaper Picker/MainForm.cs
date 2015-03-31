@@ -173,6 +173,19 @@ namespace Wallpaper_Picker
             Boolean ratioFlag;
             Boolean sizeFlag;
             MatchedImages temp;
+            String testBase; //"ratio" for ratio only search. "size" for size only search. "both" for both type search
+
+            if (checkBox1.Checked && checkBox2.Checked){
+                testBase = "both";
+            }
+            else if (checkBox1.Checked)
+            {
+                testBase = "ratio";
+            }
+            else
+            {
+                testBase = "size";
+            }
 
             foreach (string element in imageList)
             {
@@ -201,7 +214,7 @@ namespace Wallpaper_Picker
 
                                 if (ratioFlag && sizeFlag)
                                 {
-                                    temp = new MatchedImages(element, ratio);
+                                    temp = new MatchedImages(element, ratio, (textBox1.Text + "x" + textBox2.Text), testBase);
                                     matchedImages.Add(temp);
 
                                 }
@@ -229,6 +242,15 @@ namespace Wallpaper_Picker
         // Test if image size matches the target size or not.
         private bool sizeTest(int imageHeight, int imageWidth)
         {
+            if (String.IsNullOrEmpty(textBox1.Text))
+            {
+                textBox1.Text = "0";
+            }
+
+            if (String.IsNullOrEmpty(textBox2.Text))
+            {
+                textBox2.Text = "0";
+            }
 
             if (imageWidth > lowerToleranceSize * Double.Parse(textBox1.Text) && imageWidth < upperToleranceSize * Double.Parse(textBox1.Text))
             {

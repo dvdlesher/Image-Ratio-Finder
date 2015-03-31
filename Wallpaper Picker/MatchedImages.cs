@@ -11,6 +11,7 @@ namespace Wallpaper_Picker
         public String fullPath;
         public String ratio;
         public String size;
+        public String testBased;
 
         public String getfullPath()
         {
@@ -43,10 +44,12 @@ namespace Wallpaper_Picker
         }
         
 
-        public MatchedImages(String fullPath, String ratio)
+        public MatchedImages(String fullPath, String ratio, String size, String testBased)
         {
             this.fullPath = fullPath;
             this.ratio = ratio;
+            this.size = size;
+            this.testBased = testBased;
         }
     }
 }

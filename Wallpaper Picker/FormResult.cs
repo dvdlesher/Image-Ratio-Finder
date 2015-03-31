@@ -32,16 +32,29 @@ namespace Wallpaper_Picker
 
         private void copyButton_Click(object sender, EventArgs e)
         {
-            String fullpath;
-            String filename;
+            String fullpath, filename, foldername = "";
+            Boolean flagMakeFolder = false;
+
             folderBrowserDialog1.ShowDialog();
+
             for (int i = 0; i < matchedImages.Count; i++)
             {
                 fullpath = matchedImages[i].getfullPath();
                 filename = matchedImages[i].getfullPath().Split('\\')[matchedImages[i].getfullPath().Split('\\').Length - 1];
                 if (checkBox1.Checked)
                 {
-                    secureCopyMove("Copy", fullpath, folderBrowserDialog1.SelectedPath + "\\" + matchedImages[i].getratio().Replace(":", "x") + "\\" + filename, folderBrowserDialog1.SelectedPath + "\\" + matchedImages[i].getratio().Replace(":", "x"));
+                    if (!flagMakeFolder) //only create subfolder once.
+                    {
+                        foldername = subfolderName(matchedImages[i]);
+                        try
+                        {
+                            Directory.CreateDirectory(folderBrowserDialog1.SelectedPath + "\\" + subfolderName(matchedImages[i]));
+                        }
+                        catch (Exception ex) { }
+                        flagMakeFolder = true;
+
+                    }
+                    secureCopyMove("Copy", fullpath, folderBrowserDialog1.SelectedPath + "\\" + foldername + "\\" + filename);
                 }
                 else
                 {
@@ -52,16 +65,28 @@ namespace Wallpaper_Picker
 
         private void moveButton_Click(object sender, EventArgs e)
         {
-            String fullpath;
-            String filename;
+            String fullpath, filename, foldername = "";
+            Boolean flagMakeFolder = false;
+
             folderBrowserDialog1.ShowDialog();
+
             for (int i = 0; i < matchedImages.Count; i++)
             {
                 fullpath = matchedImages[i].getfullPath();
                 filename = matchedImages[i].getfullPath().Split('\\')[matchedImages[i].getfullPath().Split('\\').Length - 1];
                 if (checkBox1.Checked)
                 {
-                    secureCopyMove("Move", fullpath, folderBrowserDialog1.SelectedPath + "\\" + matchedImages[i].getratio().Replace(":", "꞉") + "\\" + filename, folderBrowserDialog1.SelectedPath + "\\" + matchedImages[i].getratio().Replace(":", "꞉"));
+                    if (!flagMakeFolder) //only create subfolder once.
+                    {
+                        foldername = subfolderName(matchedImages[i]);
+                        try
+                        {
+                            Directory.CreateDirectory(folderBrowserDialog1.SelectedPath + "\\" + foldername);
+                        }
+                        catch (Exception ex) { }
+                        flagMakeFolder = true;
+                    }
+                    secureCopyMove("Move", fullpath, folderBrowserDialog1.SelectedPath + "\\" + foldername + "\\" + filename);
                 }
                 else
                 {
@@ -77,6 +102,7 @@ namespace Wallpaper_Picker
             this.Hide();
         }
 
+        // Call this function to copy/paste + create folder if it doesn't exist
         private void secureCopyMove(String command, String inputFile, String destFile, String destDir)
         {
             if (command.Equals("Copy"))
@@ -98,6 +124,8 @@ namespace Wallpaper_Picker
                 catch (Exception e) { }
             }
         }
+
+        // Call this function to copy/paste, but without creating folder if it doesn't exist
         private void secureCopyMove(String command, String inputFile, String destFile)
         {
             if (command.Equals("Copy"))
@@ -132,6 +160,22 @@ namespace Wallpaper_Picker
             else
             {
                 DisplayButton.Enabled = true;
+            }
+        }
+
+        private string subfolderName(MatchedImages input)
+        {
+            if (String.Equals(input.testBased, "ratio"))
+            {
+                return input.ratio.Replace(":", "꞉");
+            }
+            else if (String.Equals(input.testBased, "size"))
+            {
+                return input.size;
+            }
+            else // last case: "both"
+            {
+                return input.ratio.Replace(":", "꞉") + ", " + input.size;
             }
         }
     }
