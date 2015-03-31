@@ -61,6 +61,7 @@ namespace Wallpaper_Picker
                     secureCopyMove("Copy", fullpath, folderBrowserDialog1.SelectedPath + "\\" + filename);
                 }
             }
+            MessageBox.Show("Copying Finished!");
         }
 
         private void moveButton_Click(object sender, EventArgs e)
@@ -93,6 +94,7 @@ namespace Wallpaper_Picker
                     secureCopyMove("Move", fullpath, folderBrowserDialog1.SelectedPath + "\\" + filename);
                 }
             }
+            MessageBox.Show("Moving finished!");
         }
 
         private void DisplayButton_Click(object sender, EventArgs e)
@@ -100,6 +102,35 @@ namespace Wallpaper_Picker
             DisplayForm dispWindow = new DisplayForm(matchedImages, this, comboBoxPreviewSelect.SelectedItem.ToString());
             dispWindow.Show();
             this.Hide();
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            if (!System.IO.File.Exists(System.IO.Directory.GetCurrentDirectory() + "\\" + "Match Output.txt"))
+            {
+                System.IO.File.Create(System.IO.Directory.GetCurrentDirectory() + "\\" + "Match Output.txt");
+            }
+
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter("Match Output.txt"))
+            {
+                if (checkBox2.Checked)
+                {
+                    for (int i = 0; i < matchedImages.Count; i++)
+                    {
+                        file.WriteLine(matchedImages[i].fullPath.Split('\\')[matchedImages[i].getfullPath().Split('\\').Length - 1]);
+                    } 
+                }
+                else
+                {
+                    for (int i = 0; i < matchedImages.Count; i++)
+                    {
+                        file.WriteLine(matchedImages[i].fullPath);
+                    }
+                }
+                
+            }
+
+            MessageBox.Show("Export finished! Results are written in \"Data Output.txt\".");
         }
 
         // Call this function to copy/paste + create folder if it doesn't exist
