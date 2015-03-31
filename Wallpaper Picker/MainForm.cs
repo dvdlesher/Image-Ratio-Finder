@@ -29,6 +29,7 @@ namespace Wallpaper_Picker
             lowerToleranceSize = 1.0 - (Double.Parse(textBoxTolerance2.Text) / 100.0);
             upperToleranceSize = 1.0 + (Double.Parse(textBoxTolerance2.Text) / 100.0);
             matchedImages = new List<MatchedImages>();
+            comboBox1.SelectedIndex = 1;
             allRatioFlag = false;
         }
 
@@ -113,7 +114,6 @@ namespace Wallpaper_Picker
             folderBrowserDialog1.ShowDialog();
             for (int i = 0; i < comboBox1.Items.Count; i++)
             {
-                //ratio = Double.Parse(comboBox1.Items[i].ToString().Split(' ')[0].Split(':')[0]) / Double.Parse(comboBox1.Items[i].ToString().Split(' ')[0].Split(':')[1]);
                 ratio = comboBox1.Items[i].ToString().Split(' ')[0];
                 searchFunction(folderBrowserDialog1.SelectedPath, ratio);
             }

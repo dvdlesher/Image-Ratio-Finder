@@ -109,7 +109,7 @@
             "256x256",
             "512x512",
             "800x800"});
-            this.comboBoxPreviewSelect.Location = new System.Drawing.Point(251, 115);
+            this.comboBoxPreviewSelect.Location = new System.Drawing.Point(291, 115);
             this.comboBoxPreviewSelect.Name = "comboBoxPreviewSelect";
             this.comboBoxPreviewSelect.Size = new System.Drawing.Size(121, 21);
             this.comboBoxPreviewSelect.TabIndex = 6;
@@ -117,18 +117,17 @@
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(261, 75);
+            this.checkBox1.Location = new System.Drawing.Point(261, 55);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(111, 17);
+            this.checkBox1.Size = new System.Drawing.Size(151, 52);
             this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Create Subfolder?";
+            this.checkBox1.Text = "Create Subfolder? This will create folder named \"x:y\" (aspect ratio)";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(174, 118);
+            this.label4.Location = new System.Drawing.Point(214, 118);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 8;
@@ -138,7 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 148);
+            this.ClientSize = new System.Drawing.Size(424, 148);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.comboBoxPreviewSelect);
