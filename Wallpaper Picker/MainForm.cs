@@ -31,6 +31,7 @@ namespace Wallpaper_Picker
             matchedImages = new List<MatchedImages>();
             comboBox1.SelectedIndex = 1;
             allRatioFlag = false;
+            folderBrowserDialog1.SelectedPath = System.IO.Directory.GetCurrentDirectory();
         }
 
 
