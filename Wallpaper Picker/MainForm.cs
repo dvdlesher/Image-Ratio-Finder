@@ -270,5 +270,10 @@ namespace Wallpaper_Picker
             resultWindow.Show();
             this.Hide();
         }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+            buttonAllRatio.Enabled = true;
+        }
     }
 }

@@ -51,6 +51,7 @@
             this.infoLabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // checkBox1
@@ -128,7 +129,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(12, 165);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(178, 23);
+            this.button1.Size = new System.Drawing.Size(187, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "Search";
             this.button1.UseVisualStyleBackColor = true;
@@ -232,11 +233,12 @@
             // 
             // buttonAllRatio
             // 
+            this.buttonAllRatio.Enabled = false;
             this.buttonAllRatio.Location = new System.Drawing.Point(307, 165);
             this.buttonAllRatio.Name = "buttonAllRatio";
-            this.buttonAllRatio.Size = new System.Drawing.Size(207, 23);
+            this.buttonAllRatio.Size = new System.Drawing.Size(221, 23);
             this.buttonAllRatio.TabIndex = 18;
-            this.buttonAllRatio.Text = "Search All Ratio";
+            this.buttonAllRatio.Text = "Multi-Custom Search";
             this.buttonAllRatio.UseVisualStyleBackColor = true;
             this.buttonAllRatio.Click += new System.EventHandler(this.buttonAllRatio_Click);
             // 
@@ -267,11 +269,22 @@
             this.label9.TabIndex = 21;
             this.label9.Text = "5% very tolerant";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(307, 146);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(221, 13);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "*Not Implemented Yet (click to enable debug)";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 200);
+            this.ClientSize = new System.Drawing.Size(534, 200);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.infoLabel);
@@ -326,6 +339,7 @@
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
 
