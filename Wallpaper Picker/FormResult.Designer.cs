@@ -51,7 +51,7 @@
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(346, 23);
             this.copyButton.TabIndex = 0;
-            this.copyButton.Text = "Copy to location";
+            this.copyButton.Text = "Copy to another location";
             this.copyButton.UseVisualStyleBackColor = true;
             this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
             // 
@@ -61,7 +61,7 @@
             this.moveButton.Name = "moveButton";
             this.moveButton.Size = new System.Drawing.Size(346, 23);
             this.moveButton.TabIndex = 1;
-            this.moveButton.Text = "Move to location";
+            this.moveButton.Text = "Move to another location";
             this.moveButton.UseVisualStyleBackColor = true;
             this.moveButton.Click += new System.EventHandler(this.moveButton_Click);
             // 
@@ -130,9 +130,9 @@
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Location = new System.Drawing.Point(12, 126);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(338, 17);
+            this.checkBox1.Size = new System.Drawing.Size(103, 17);
             this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Create Subfolder? This will create folder named \"x:y\" (aspect ratio)";
+            this.checkBox1.Text = "Create subfolder";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -172,9 +172,9 @@
             this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox3.Location = new System.Drawing.Point(11, 149);
             this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(248, 17);
+            this.checkBox3.Size = new System.Drawing.Size(285, 17);
             this.checkBox3.TabIndex = 11;
-            this.checkBox3.Text = "Create subfolder in same location as image files";
+            this.checkBox3.Text = "Set location to be the same directory as this application";
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 

@@ -31,32 +31,33 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.widthTextbox = new System.Windows.Forms.TextBox();
+            this.heightTextbox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxTolerance1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.searchButton = new System.Windows.Forms.Button();
             this.checkBoxSubfolder = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.recursionTextbox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxTolerance2 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.checkBoxAddPrev = new System.Windows.Forms.CheckBox();
             this.buttonAllRatio = new System.Windows.Forms.Button();
-            this.infoLabel = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.infoLabel1 = new System.Windows.Forms.Label();
+            this.infoLabel2 = new System.Windows.Forms.Label();
+            this.infoLabel3 = new System.Windows.Forms.Label();
+            this.debugLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Location = new System.Drawing.Point(12, 12);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(51, 17);
@@ -78,7 +79,6 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "4:3 (800x600, 1024x768)",
@@ -89,22 +89,23 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(212, 21);
             this.comboBox1.TabIndex = 2;
+            this.comboBox1.Text = "16:9 (720p, 1080p)";
             // 
-            // textBox1
+            // widthTextbox
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(69, 37);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(54, 20);
-            this.textBox1.TabIndex = 3;
+            this.widthTextbox.Enabled = false;
+            this.widthTextbox.Location = new System.Drawing.Point(69, 37);
+            this.widthTextbox.Name = "widthTextbox";
+            this.widthTextbox.Size = new System.Drawing.Size(54, 20);
+            this.widthTextbox.TabIndex = 3;
             // 
-            // textBox2
+            // heightTextbox
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(137, 37);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(53, 20);
-            this.textBox2.TabIndex = 4;
+            this.heightTextbox.Enabled = false;
+            this.heightTextbox.Location = new System.Drawing.Point(137, 37);
+            this.heightTextbox.Name = "heightTextbox";
+            this.heightTextbox.Size = new System.Drawing.Size(53, 20);
+            this.heightTextbox.TabIndex = 4;
             // 
             // label1
             // 
@@ -117,7 +118,6 @@
             // 
             // textBoxTolerance1
             // 
-            this.textBoxTolerance1.Enabled = false;
             this.textBoxTolerance1.Location = new System.Drawing.Point(347, 10);
             this.textBoxTolerance1.Name = "textBoxTolerance1";
             this.textBoxTolerance1.Size = new System.Drawing.Size(27, 20);
@@ -125,25 +125,24 @@
             this.textBoxTolerance1.Text = "1";
             this.textBoxTolerance1.TextChanged += new System.EventHandler(this.textBoxTolerance1_TextChanged);
             // 
-            // button1
+            // searchButton
             // 
-            this.button1.Location = new System.Drawing.Point(12, 165);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(187, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Search";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.searchButton.Location = new System.Drawing.Point(12, 165);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(187, 23);
+            this.searchButton.TabIndex = 7;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // checkBoxSubfolder
             // 
             this.checkBoxSubfolder.AutoSize = true;
-            this.checkBoxSubfolder.Enabled = false;
-            this.checkBoxSubfolder.Location = new System.Drawing.Point(12, 91);
+            this.checkBoxSubfolder.Location = new System.Drawing.Point(15, 120);
             this.checkBoxSubfolder.Name = "checkBoxSubfolder";
-            this.checkBoxSubfolder.Size = new System.Drawing.Size(223, 17);
+            this.checkBoxSubfolder.Size = new System.Drawing.Size(114, 17);
             this.checkBoxSubfolder.TabIndex = 8;
-            this.checkBoxSubfolder.Text = "Includes Subfolder? (not implemented yet)";
+            this.checkBoxSubfolder.Text = "Includes Subfolder";
             this.checkBoxSubfolder.UseVisualStyleBackColor = true;
             this.checkBoxSubfolder.CheckedChanged += new System.EventHandler(this.checkBoxSubfolder_CheckedChanged);
             // 
@@ -165,19 +164,19 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "%";
             // 
-            // textBox4
+            // recursionTextbox
             // 
-            this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(69, 114);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(27, 20);
-            this.textBox4.TabIndex = 12;
-            this.textBox4.Text = "0";
+            this.recursionTextbox.Enabled = false;
+            this.recursionTextbox.Location = new System.Drawing.Point(72, 143);
+            this.recursionTextbox.Name = "recursionTextbox";
+            this.recursionTextbox.Size = new System.Drawing.Size(27, 20);
+            this.recursionTextbox.TabIndex = 12;
+            this.recursionTextbox.Text = "0";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 117);
+            this.label4.Location = new System.Drawing.Point(12, 146);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 13);
             this.label4.TabIndex = 11;
@@ -186,7 +185,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(98, 117);
+            this.label5.Location = new System.Drawing.Point(101, 146);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 13);
             this.label5.TabIndex = 13;
@@ -220,17 +219,6 @@
             this.label7.TabIndex = 14;
             this.label7.Text = "Tolerance";
             // 
-            // checkBoxAddPrev
-            // 
-            this.checkBoxAddPrev.AutoSize = true;
-            this.checkBoxAddPrev.Enabled = false;
-            this.checkBoxAddPrev.Location = new System.Drawing.Point(307, 91);
-            this.checkBoxAddPrev.Name = "checkBoxAddPrev";
-            this.checkBoxAddPrev.Size = new System.Drawing.Size(128, 17);
-            this.checkBoxAddPrev.TabIndex = 17;
-            this.checkBoxAddPrev.Text = "Add Previous Result?";
-            this.checkBoxAddPrev.UseVisualStyleBackColor = true;
-            // 
             // buttonAllRatio
             // 
             this.buttonAllRatio.Enabled = false;
@@ -242,68 +230,67 @@
             this.buttonAllRatio.UseVisualStyleBackColor = true;
             this.buttonAllRatio.Click += new System.EventHandler(this.buttonAllRatio_Click);
             // 
-            // infoLabel
+            // infoLabel1
             // 
-            this.infoLabel.AutoSize = true;
-            this.infoLabel.Location = new System.Drawing.Point(413, 13);
-            this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(101, 13);
-            this.infoLabel.TabIndex = 19;
-            this.infoLabel.Text = "0.1% very restrictive";
+            this.infoLabel1.AutoSize = true;
+            this.infoLabel1.Location = new System.Drawing.Point(413, 13);
+            this.infoLabel1.Name = "infoLabel1";
+            this.infoLabel1.Size = new System.Drawing.Size(101, 13);
+            this.infoLabel1.TabIndex = 19;
+            this.infoLabel1.Text = "0.1% very restrictive";
             // 
-            // label8
+            // infoLabel2
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(413, 30);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 13);
-            this.label8.TabIndex = 20;
-            this.label8.Text = "1% average";
+            this.infoLabel2.AutoSize = true;
+            this.infoLabel2.Location = new System.Drawing.Point(413, 30);
+            this.infoLabel2.Name = "infoLabel2";
+            this.infoLabel2.Size = new System.Drawing.Size(63, 13);
+            this.infoLabel2.TabIndex = 20;
+            this.infoLabel2.Text = "1% average";
             // 
-            // label9
+            // infoLabel3
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(413, 47);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 13);
-            this.label9.TabIndex = 21;
-            this.label9.Text = "5% very tolerant";
+            this.infoLabel3.AutoSize = true;
+            this.infoLabel3.Location = new System.Drawing.Point(413, 47);
+            this.infoLabel3.Name = "infoLabel3";
+            this.infoLabel3.Size = new System.Drawing.Size(82, 13);
+            this.infoLabel3.TabIndex = 21;
+            this.infoLabel3.Text = "5% very tolerant";
             // 
-            // label10
+            // debugLabel
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(307, 146);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(221, 13);
-            this.label10.TabIndex = 22;
-            this.label10.Text = "*Not Implemented Yet (click to enable debug)";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
+            this.debugLabel.AutoSize = true;
+            this.debugLabel.Location = new System.Drawing.Point(307, 146);
+            this.debugLabel.Name = "debugLabel";
+            this.debugLabel.Size = new System.Drawing.Size(221, 13);
+            this.debugLabel.TabIndex = 22;
+            this.debugLabel.Text = "*Not Implemented Yet (click to enable debug)";
+            this.debugLabel.Click += new System.EventHandler(this.label10_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 200);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.infoLabel);
+            this.Controls.Add(this.debugLabel);
+            this.Controls.Add(this.infoLabel3);
+            this.Controls.Add(this.infoLabel2);
+            this.Controls.Add(this.infoLabel1);
             this.Controls.Add(this.buttonAllRatio);
-            this.Controls.Add(this.checkBoxAddPrev);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxTolerance2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.recursionTextbox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBoxSubfolder);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.searchButton);
             this.Controls.Add(this.textBoxTolerance1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.heightTextbox);
+            this.Controls.Add(this.widthTextbox);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
@@ -319,27 +306,26 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox widthTextbox;
+        private System.Windows.Forms.TextBox heightTextbox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxTolerance1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.CheckBox checkBoxSubfolder;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox recursionTextbox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxTolerance2;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.CheckBox checkBoxAddPrev;
         private System.Windows.Forms.Button buttonAllRatio;
-        private System.Windows.Forms.Label infoLabel;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label infoLabel1;
+        private System.Windows.Forms.Label infoLabel2;
+        private System.Windows.Forms.Label infoLabel3;
+        private System.Windows.Forms.Label debugLabel;
     }
 }
 

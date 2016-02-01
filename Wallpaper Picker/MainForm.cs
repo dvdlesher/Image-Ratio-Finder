@@ -19,7 +19,7 @@ namespace Wallpaper_Picker
         private double lowerToleranceSize;
         private double upperToleranceSize;
         private List<MatchedImages> matchedImages;
-        private bool allRatioFlag;
+        private List<String> dirList;
 
         public MainForm()
         {
@@ -29,8 +29,8 @@ namespace Wallpaper_Picker
             lowerToleranceSize = 1.0 - (Double.Parse(textBoxTolerance2.Text) / 100.0);
             upperToleranceSize = 1.0 + (Double.Parse(textBoxTolerance2.Text) / 100.0);
             matchedImages = new List<MatchedImages>();
+            dirList = new List<String>();
             comboBox1.SelectedIndex = 1;
-            allRatioFlag = false;
             folderBrowserDialog1.SelectedPath = System.IO.Directory.GetCurrentDirectory();
         }
 
@@ -43,6 +43,7 @@ namespace Wallpaper_Picker
         // Ratio Option
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            searchButtonCheck();
             if (checkBox1.Checked)
             {
                 comboBox1.Enabled = true;
@@ -59,58 +60,93 @@ namespace Wallpaper_Picker
         // Size Option
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
+            searchButtonCheck();
             if (checkBox2.Checked)
             {
-                textBox1.Enabled = true;
-                textBox2.Enabled = true;
+                widthTextbox.Enabled = true;
+                heightTextbox.Enabled = true;
                 textBoxTolerance2.Enabled = true;
             }
             else
             {
-                textBox1.Enabled = false;
-                textBox2.Enabled = false;
+                widthTextbox.Enabled = false;
+                heightTextbox.Enabled = false;
                 textBoxTolerance2.Enabled = false;
             }
         }
 
-        // Subfolder Option
-        private void checkBoxSubfolder_CheckedChanged(object sender, EventArgs e)
+        private void searchButtonCheck()
         {
-            if (checkBoxSubfolder.Checked)
+            if (checkBox1.Checked || checkBox2.Checked)
             {
-                textBox4.Enabled = true;
+                searchButton.Enabled = true;
             }
             else
             {
-                textBox4.Enabled = false;
+                searchButton.Enabled = false;
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void searchButton_Click(object sender, EventArgs e)
         {
-            allRatioFlag = false;
             String ratio = comboBox1.SelectedItem.ToString().Split(' ')[0];
 
             //NOT DONE: pointing at current location
-            folderBrowserDialog1.ShowDialog();
-
-            if (!String.IsNullOrEmpty(folderBrowserDialog1.SelectedPath))
+            if (!(folderBrowserDialog1.ShowDialog() == DialogResult.Cancel) && !String.IsNullOrEmpty(folderBrowserDialog1.SelectedPath))
             {
-                if (!checkBoxAddPrev.Checked)
+                dirList.Clear(); //empty dirList for subdirectories search
+                dirList.TrimExcess(); //empty dirList for subdirectories search
+                matchedImages.Clear(); //empty matchedImages for the images search
+                matchedImages.TrimExcess(); //empty dirList for the images search
+
+                dirList.Add(folderBrowserDialog1.SelectedPath);
+                // Store all subfolders in dirList List
+                if (checkBoxSubfolder.Checked)
                 {
-                    matchedImages.Clear();
-                    matchedImages.TrimExcess();
+                    if (int.Parse(recursionTextbox.Text) == 0)
+                    {
+                        recursiveDirSearch(folderBrowserDialog1.SelectedPath, 999);
+                    }
+                    else
+                    {
+                        recursiveDirSearch(folderBrowserDialog1.SelectedPath, int.Parse(recursionTextbox.Text));
+                    }
                 }
-                searchFunction(folderBrowserDialog1.SelectedPath, ratio);
+
+                foreach (string dirs in dirList)
+                {
+                    searchFunction(dirs, ratio);
+                }
                 callResultDialog();
             }
+        }
 
+        private void recursiveDirSearch(string dirPath, int recursionNum)
+        {
+            if (Directory.GetDirectories(dirPath).Length != 0)
+            {
+                recursionNum--;
+            }
+
+            if (recursionNum >= 0)
+            {
+                foreach (string res in Directory.GetDirectories(dirPath))
+                {
+                    dirList.Add(res);
+                    recursiveDirSearch(res, recursionNum);
+                }
+            }
+        }
+
+        private void ratioFinderButton_Click(object sender, EventArgs e)
+        {
+            // Call another form, informing all of the images and their associated ratio in table
+            // Have a feature so that the result can be pasted as txt or csv
         }
 
         
         private void buttonAllRatio_Click(object sender, EventArgs e)
         {
-            allRatioFlag = true;
             String ratio;
             folderBrowserDialog1.ShowDialog();
             for (int i = 0; i < comboBox1.Items.Count; i++)
@@ -131,8 +167,8 @@ namespace Wallpaper_Picker
 
         private void textBoxTolerance2_TextChanged(object sender, EventArgs e)
         {
-            lowerToleranceSize = 1.0 - (Double.Parse(textBoxTolerance1.Text) / 100.0);
-            upperToleranceSize = 1.0 + (Double.Parse(textBoxTolerance1.Text) / 100.0);
+            lowerToleranceSize = 1.0 - (Double.Parse(textBoxTolerance2.Text) / 100.0);
+            upperToleranceSize = 1.0 + (Double.Parse(textBoxTolerance2.Text) / 100.0);
         }
 
         ///////////////////////
@@ -215,7 +251,7 @@ namespace Wallpaper_Picker
 
                                 if (ratioFlag && sizeFlag)
                                 {
-                                    temp = new MatchedImages(element, ratio, (textBox1.Text + "x" + textBox2.Text), testBase);
+                                    temp = new MatchedImages(element, ratio, (widthTextbox.Text + "x" + heightTextbox.Text), testBase);
                                     matchedImages.Add(temp);
 
                                 }
@@ -243,19 +279,19 @@ namespace Wallpaper_Picker
         // Test if image size matches the target size or not.
         private bool sizeTest(int imageHeight, int imageWidth)
         {
-            if (String.IsNullOrEmpty(textBox1.Text))
+            if (String.IsNullOrEmpty(widthTextbox.Text))
             {
-                textBox1.Text = "0";
+                widthTextbox.Text = "0";
             }
 
-            if (String.IsNullOrEmpty(textBox2.Text))
+            if (String.IsNullOrEmpty(heightTextbox.Text))
             {
-                textBox2.Text = "0";
+                heightTextbox.Text = "0";
             }
 
-            if (imageWidth > lowerToleranceSize * Double.Parse(textBox1.Text) && imageWidth < upperToleranceSize * Double.Parse(textBox1.Text))
+            if (imageWidth > lowerToleranceSize * Double.Parse(widthTextbox.Text) && imageWidth < upperToleranceSize * Double.Parse(widthTextbox.Text))
             {
-                if (imageHeight > lowerToleranceSize * Double.Parse(textBox2.Text) && imageHeight < upperToleranceSize * Double.Parse(textBox2.Text))
+                if (imageHeight > lowerToleranceSize * Double.Parse(heightTextbox.Text) && imageHeight < upperToleranceSize * Double.Parse(heightTextbox.Text))
                 {
                     return true;
                 }
@@ -274,6 +310,18 @@ namespace Wallpaper_Picker
         private void label10_Click(object sender, EventArgs e)
         {
             buttonAllRatio.Enabled = true;
+        }
+
+        private void checkBoxSubfolder_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxSubfolder.Checked)
+            {
+                recursionTextbox.Enabled = true;
+            } 
+            else 
+            {
+                recursionTextbox.Enabled = false;
+            }
         }
     }
 }

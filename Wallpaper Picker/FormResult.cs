@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -34,6 +35,17 @@ namespace Wallpaper_Picker
             if (matchedImages.Count > 0)
             {
                 folderName = subfolderName(matchedImages[0]);
+            }
+            else
+            {
+                copyButton.Enabled = false;
+                moveButton.Enabled = false;
+                exportButton.Enabled = false;
+                DisplayButton.Enabled = false;
+                checkBox1.Enabled = false;
+                checkBox2.Enabled = false;
+                checkBox3.Enabled = false;
+                comboBoxPreviewSelect.Enabled = false;
             }
             copyButton.Text = "Copy to here (create subfolder \"" + folderName + "\")";
             moveButton.Text = "Move to here (create subfolder \"" + folderName + "\")";
@@ -131,7 +143,7 @@ namespace Wallpaper_Picker
         {
             if (!System.IO.File.Exists(System.IO.Directory.GetCurrentDirectory() + "\\" + "Image Matches Path.txt"))
             {
-                System.IO.File.Create(System.IO.Directory.GetCurrentDirectory() + "\\" + "Image Matches Path.txt");
+                System.IO.File.Create(System.IO.Directory.GetCurrentDirectory() + "\\" + "Image Matches Path.txt").Close();
             }
 
             using (System.IO.StreamWriter file = new System.IO.StreamWriter("Image Matches Path.txt"))
