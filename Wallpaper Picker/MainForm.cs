@@ -31,7 +31,7 @@ namespace Wallpaper_Picker
             upperToleranceSize = 1.0 + (Double.Parse(textBoxTolerance2.Text) / 100.0);
             matchedImages = new List<MatchedImages>();
             dirList = new List<String>();
-            comboBox1.SelectedIndex = 1;
+            ratioComboBox.SelectedIndex = 1;
             folderBrowserDialog1.SelectedPath = System.IO.Directory.GetCurrentDirectory();
         }
 
@@ -47,12 +47,12 @@ namespace Wallpaper_Picker
             searchButtonCheck();
             if (checkBox1.Checked)
             {
-                comboBox1.Enabled = true;
+                ratioComboBox.Enabled = true;
                 textBoxTolerance1.Enabled = true;
             }
             else
             {
-                comboBox1.Enabled = false;
+                ratioComboBox.Enabled = false;
                 textBoxTolerance1.Enabled = false;
             }
 
@@ -90,7 +90,7 @@ namespace Wallpaper_Picker
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            String ratio = comboBox1.SelectedItem.ToString().Split(' ')[0];
+            String ratio = ratioComboBox.SelectedItem.ToString().Split(' ')[0];
 
             //NOT DONE: pointing at current location
             if (!(folderBrowserDialog1.ShowDialog() == DialogResult.Cancel) && !String.IsNullOrEmpty(folderBrowserDialog1.SelectedPath))
@@ -150,9 +150,9 @@ namespace Wallpaper_Picker
         {
             String ratio;
             folderBrowserDialog1.ShowDialog();
-            for (int i = 0; i < comboBox1.Items.Count; i++)
+            for (int i = 0; i < ratioComboBox.Items.Count; i++)
             {
-                ratio = comboBox1.Items[i].ToString().Split(' ')[0];
+                ratio = ratioComboBox.Items[i].ToString().Split(' ')[0];
                 searchFunction(folderBrowserDialog1.SelectedPath, ratio);
             }
             callResultDialog();
@@ -266,7 +266,7 @@ namespace Wallpaper_Picker
         // Test if image ratio matches the ratio or not.
         private bool ratioTest(int imageHeight, int imageWidth, double targetRatio)
         {
-            String ratioText = comboBox1.GetItemText(comboBox1.SelectedItem).Split(' ')[0];
+            String ratioText = ratioComboBox.GetItemText(ratioComboBox.SelectedItem).Split(' ')[0];
             double imageRatio = Convert.ToDouble(imageWidth) / Convert.ToDouble(imageHeight);
 
             if (imageRatio > lowerToleranceRatio * targetRatio && imageRatio < upperToleranceRatio * targetRatio)
@@ -324,5 +324,18 @@ namespace Wallpaper_Picker
                 recursionTextbox.Enabled = false;
             }
         }
+        
+		void RatioComboBoxSelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (ratioComboBox.SelectedIndex == 4 || ratioComboBox.SelectedIndex == -1)
+			{
+				ratioComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+				ratioComboBox.SelectedIndex = -1;
+			} 
+			else
+			{
+				ratioComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			}
+		}
     }
 }
